@@ -1,9 +1,9 @@
 <template>
   <div class="contactBtn">
-    <div class="logo-container">
+    <div class="logo-container d-flex flex-row ;">
       <v-img width="28px" height="28px" src="../assets/Frame.png"> </v-img>
+      <p>&nbsp;&nbsp;<span class="text-white">+94 71 313 4322</span></p>
     </div>
-    <div class="contact-num"><p>+94 713 3432 2</p></div>
   </div>
 </template>
 
@@ -15,17 +15,6 @@ export default {
 
 <style>
 .contactBtn {
-  padding: 4px 10px;
-  display: flex;
-  justify-content: space-between;
-  width: 170px;
-  background: #e53935;
-  border-radius: 10px;
-}
-.logo-container {
-  margin-right: 10px; 
-}
-.contact-num p{
-    color: white;
+  background: #f54d4d;
 }
 </style>
