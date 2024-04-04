@@ -2,7 +2,6 @@
   <div class="header">
     <v-img
       width="100vw"
-      height="312px"
       aspect-ratio="1728/544"
       cover
       src="../assets/cover.png"
