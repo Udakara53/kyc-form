@@ -154,7 +154,7 @@
       >
         <div class="horizontal-line"></div>
         <div class="mt-3">
-          <p class="poppins-paragraph">
+          <p class="footer-paragraph">
             Copyright ©2023 PayMedia. All Rights Reserved
           </p>
         </div>
@@ -191,7 +191,7 @@ export default {
   margin: 0 auto;
   border-top: 2px solid #fff;
 }
-.poppins-paragraph {
+.footer-paragraph {
   font-family: 'Poppins', sans-serif;
   font-size: 18px;
   font-weight: 400;
