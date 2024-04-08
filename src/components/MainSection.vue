@@ -1,3 +1,5 @@
+
+// this component is not in used
 <template>
   <v-container class="pa-9" style="width: 60%">
     <h1 style="">KYC Form</h1>
