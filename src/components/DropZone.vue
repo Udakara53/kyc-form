@@ -1,50 +1,68 @@
 <template>
   <div
-    class="drop-zone"
-    @dragover.prevent="dragOver"
-    @dragenter.prevent="dragEnter"
-    @dragleave.prevent="dragLeave"
-    @drop.prevent="handleDrop"
+    @dragenter.prevent="toggleActive"
+    @dragleave.prevent="toggleActive"
+    @dragover.prevent
+    @drop.prevent="toggleActive"
+    :class="{ 'active-dropzen': active }"
+    class="dropzone"
   >
-    <slot :isDragActive="isDragActive"></slot>
+    <span>Drop your image here</span>
+    <span>OR</span>
+    <label for="dropzoneFile">Select File</label>
+    <input type="file" id="dropzoneFile" class="dropzoneFile" />
   </div>
 </template>
 
 <script>
+import { ref } from 'vue';
 export default {
   name: 'DropZone',
-  data() {
-    return {
-      isDragActive: false,
+  setup() {
+    const active = ref(false);
+
+    const toggleActive = () => {
+      active.value = !active.value;
     };
-  },
-  methods: {
-    dragOver() {
-      this.isDragActive = true;
-    },
-    dragEnter() {
-      this.isDragActive = true;
-    },
-    dragLeave() {
-      this.isDragActive = false;
-    },
-    handleDrop(e) {
-      this.isDragActive = false;
-      this.$emit('files-dropped', Array.from(e.dataTransfer.files));
-    },
+    return { active, toggleActive };
   },
 };
 </script>
 
 <style>
-.drop-zone {
-  border: 2px dashed #ccc;
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  margin-bottom: 20px;
+.dropzone {
+  padding: 6px;
+  width: 46.2%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 2px solid grey;
+  background-color: #fff;
+  transition: 0.3s ease all;
 }
-.drop-zone.active {
-  background-color: #fafafa;
+
+.dropzone label {
+  padding: 2px 3px;
+  color: #fff;
+  background-color: #f54d4d;
+  transition: 0.3s ease all;
+}
+
+.dropzone input {
+  display: none;
+}
+
+.active-dropzone {
+  color: #fff;
+  border-color: #fff;
+  background-color: #f54d4d;
+}
+
+.active-dropzone label {
+  background-color: #fff;
+  color: #f54d4d;
 }
 </style>
