@@ -86,7 +86,7 @@
           </p>
         </div>
         <div class="d-flex">
-          <div class="icon-outer">
+          <div class="icon-outer mr-2">
             <div class="icon-inner">
               <v-img
                 width="20px"

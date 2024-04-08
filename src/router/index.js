@@ -1,12 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import FormStep1 from '../components/FormStep1.vue';
+import FormStep2 from '../components/FormStep2.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
-  },
+    component: HomeView,
+    children: [
+      {
+        path: '', // Default child route
+        redirect: 'step1',
+      },
+      {
+        path: 'step1',
+        name: 'Step1',
+        component: FormStep1,
+      },
+      {
+        path: 'step2',
+        name: 'Step2',
+        component: FormStep2,
+      },
+    ]},
   {
     path: '/about',
     name: 'about',
