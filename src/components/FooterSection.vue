@@ -89,6 +89,7 @@
           <div class="icon-outer mr-2">
             <div class="icon-inner">
               <v-img
+                class="social-icon"
                 width="20px"
                 height="14px"
                 src="../assets/Youtube.png"
@@ -98,6 +99,7 @@
           <div class="icon-outer mx-2">
             <div class="icon-inner">
               <v-img
+                class="social-icon"
                 width="20px"
                 height="14px"
                 src="../assets/instagram.png"
@@ -107,6 +109,7 @@
           <div class="mx-2 icon-outer">
             <div class="icon-inner">
               <v-img
+                class="social-icon"
                 width="20px"
                 height="14px"
                 src="../assets/Tweeter.png"
@@ -116,6 +119,7 @@
           <div class="mx-2 icon-outer">
             <div class="icon-inner">
               <v-img
+                class="social-icon"
                 width="20px"
                 height="14px"
                 src="../assets/Facebook.png"
@@ -174,6 +178,9 @@ export default {
   justify-content: center;
 }
 .icon-outer {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   width: 40px;
   height: 40px;
@@ -181,6 +188,7 @@ export default {
   border-radius: 50%;
 }
 .icon-inner {
+  display: flex;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -198,5 +206,10 @@ export default {
   line-height: 27px;
   text-align: center;
   color: white;
+}
+.social-icon {
+  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
 }
 </style>
