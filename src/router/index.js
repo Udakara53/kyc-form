@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import FormStep1 from '../components/FormStep1.vue';
-import FormStep2 from '../components/FormStep2.vue';
+import FormStep1 from '../views/FormStep1.vue';
+import FormStep2 from '../views/FormStep2.vue';
 
 const routes = [
   {

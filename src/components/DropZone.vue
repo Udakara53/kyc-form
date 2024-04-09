@@ -1,5 +1,5 @@
 <template>
-  <div
+  <v-container
     @dragenter.prevent="toggleActive"
     @dragleave.prevent="toggleActive"
     @dragover.prevent
@@ -11,7 +11,7 @@
     <span>OR</span>
     <label for="dropzoneFile">Select File</label>
     <input type="file" id="dropzoneFile" class="dropzoneFile" />
-  </div>
+  </v-container>
 </template>
 
 <script>

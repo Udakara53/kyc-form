@@ -19,21 +19,24 @@
     </v-row>
 
     <v-row class="d-flex justify-end">
-      <v-btn
+      <v-col cols="3">
+        <v-btn
         text
         @click="goBack"
-        class="mr-7 custom-btn"
-        style="outline: 2px solid black; width: 180px"
+        class="mr-7 custom-btn py-6"
+        style="outline: 2px solid black; width: 90%"
         >Back</v-btn
       >
-
-      <v-btn
+      </v-col>
+      <v-col cols="4">
+        <v-btn
         color="#F54D4D"
         @click="continueToNextStep"
-        class="custom-btn"
+        class="custom-btn py-6"
         style="background-color: #f54d4d; color: #ffffff; width: 299px"
         >Let's Continue</v-btn
       >
+      </v-col>
     </v-row>
   </v-container>
 </template>
