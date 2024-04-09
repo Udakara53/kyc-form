@@ -44,6 +44,12 @@ export default {
   transition: 0.3s ease all;
 }
 
+.dropzone img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
 .dropzone label {
   padding: 2px 3px;
   color: #fff;

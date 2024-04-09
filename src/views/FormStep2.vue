@@ -5,7 +5,7 @@
         Please enter your valid Name & email address to use all of our features.
       </p>
   
-      <v-row>
+      <!-- <v-row>
         <v-col>
           <div class="upload-section">
             <DropZone @drop.prevent="drop" />
@@ -15,6 +15,12 @@
           <div class="upload-section">
             <DropZone @drop.prevent="drop" />
           </div>
+        </v-col>
+      </v-row> -->
+
+      <v-row>
+        <v-col>
+            <DropArea/>
         </v-col>
       </v-row>
   
@@ -39,17 +45,21 @@
         </v-col>
       </v-row>
     </v-container>
+    
   </template>
   
   <script>
   import { useRouter } from 'vue-router';
-  import DropZone from '@/components/DropZone';
+  //import DropZone from '@/components/DropZone';
+  import DropArea from '@/components/DropArea';
   import { ref } from 'vue';
   
   export default {
     name: 'FormStep2',
     components: {
-      DropZone,
+      //DropZone,
+      DropArea
+      
     },
     setup() {
       const router = useRouter();
