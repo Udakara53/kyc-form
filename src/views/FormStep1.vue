@@ -2,7 +2,7 @@
     <v-container class="pa-9" style="width: 60%">
     <h1 style="">KYC Form</h1>
     <p class="poppins-paragraph mt-5">
-      Please enter your valid Name & email address to using all of our
+      Please enter your valid Name & email address to use all of our
     </p>
     <p class="poppins-paragraph mb-8">feature</p>
     <!-- <FormStep1 /> -->

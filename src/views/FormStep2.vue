@@ -28,8 +28,8 @@
         <v-col cols="2"></v-col>
         <v-col cols="5">
             <div class="d-flex align-start mt-9" style="max-width:250px; max-height:250px">
-            <label for=""><strong>NIC / DL rear image</strong> <span class="required-star">*</span></label>
-            </div>
+        <label for=""><strong>NIC / DL front image</strong> <span class="required-star">*</span></label>
+    </div>
             <DropArea/>
         </v-col>
       </v-row>
