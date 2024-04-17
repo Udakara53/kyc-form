@@ -1,10 +1,12 @@
 <template>
     <v-container class="pa-9" style="width: 60%">
-    <h1 style="">KYC Form</h1>
+    <div v-if="showHeader">
+      <h1 style="">KYC Form</h1>
     <p class="poppins-paragraph mt-5">
       Please enter your valid Name & email address to use all of our
     </p>
     <p class="poppins-paragraph mb-8">feature</p>
+    </div>
     <!-- <FormStep1 /> -->
     <v-form v-model="valid" @submit.prevent>
     <v-container class="">
@@ -53,7 +55,7 @@
           ></v-select>
         </v-col>
       </v-row>
-      <v-row class="d-flex justify-end">
+      <v-row class="d-flex justify-end" v-if="showButtons">
         <!-- <v-col cols="5"></v-col> -->
         <v-col cols="3">          
           <v-btn
@@ -101,6 +103,16 @@ export default {
       nicNumber: '',
       nationality: 'USA',
     };
+  },
+  props: {
+    showHeader: {
+      type: Boolean,
+      default: true
+    },
+    showButtons: {
+      type: Boolean,
+      default: true
+    }
   },
   setup() {
     const router = useRouter();

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import FormStep1 from '../views/FormStep1.vue';
 import FormStep2 from '../views/FormStep2.vue';
+import PreviewStep from '@/views/PreviewStep'
 
 const routes = [
   {
@@ -21,6 +22,11 @@ const routes = [
         path: 'step2',
         name: 'Step2',
         component: FormStep2,
+      },
+      {
+        path: 'preview',
+        name: 'Preview',
+        component: PreviewStep,
       },
     ]},
   {

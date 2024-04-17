@@ -1,9 +1,12 @@
 <template>
     <v-container class="pa-9" style="width: 60%">
-      <h1>KYC Form</h1>
+      <div  v-if="showHeader">
+        <h1>KYC Form</h1>
       <p class="poppins-paragraph mt-5">
-        Please enter your valid Name & email address to use all of our features.
+        Please enter your valid Name & email address to use all of our
       </p>
+      <p class="poppins-paragraph mb-8">feature</p>
+      </div>
   
       <!-- <v-row>
         <v-col>
@@ -35,14 +38,14 @@
       </v-row>
       <v-row>
         <v-col cols="5">
-          <div style="max-width:250px; max-height:250px">
-            
-          </div>
+          <div class="d-flex align-start mt-9" style="max-width:250px; max-height:250px">
+        <label for=""><strong>Selfie Image</strong> <span class="required-star">*</span></label>
+    </div>
           <Camera/>
         </v-col>
       </v-row>
   
-      <v-row class="d-flex justify-end">
+      <v-row class="d-flex justify-end" v-if="showButtons">
         <v-col cols="3">
           <v-btn
           text
@@ -68,7 +71,6 @@
   
   <script>
   import { useRouter } from 'vue-router';
-  //import DropZone from '@/components/DropZone';
   import DropArea from '@/components/DropArea';
   import { ref } from 'vue';
   import Camera from '@/components/SelfieUpload.vue'
@@ -76,11 +78,20 @@
   export default {
     name: 'FormStep2',
     components: {
-      //DropZone,
       DropArea,
       Camera
       
     },
+    props: {
+    showHeader: {
+      type: Boolean,
+      default: true
+    },
+    showButtons: {
+      type: Boolean,
+      default: true
+    }
+  },
     setup() {
       const router = useRouter();
       const idFront = ref({ preview: null });
@@ -92,11 +103,11 @@
       };
   
       const continueToNextStep = () => {
-        router.push({ name: 'Step2' }); // Replace 'NextStepName' with your next step route name
+        router.push({ name: 'Preview' }); 
       };
   
       const goBack = () => {
-        router.push({ name: 'Step1' }); // Ensure this is the correct route name for going back
+        router.push({ name: 'Step1' }); 
       };
   
       let dropzoneFile = ref('');

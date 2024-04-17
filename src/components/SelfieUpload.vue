@@ -7,7 +7,7 @@
             <v-img src="../assets/icon-upload.png" width="66px" height="75px"></v-img>
           </div>
           
-          <camera v-if="showCamera" ref="camera" :resolution="{ width: 1280, height: 720 }" autoplay class="mb-4"></camera>
+          <camera v-if="showCamera" ref="camera" :resolution="{ width: 1280, height: 720 }" autoplay class=""></camera>
           <v-btn v-else @click="startCamera" class="mt-4" style="background-color: #F54D4D; color:white; text-transform: none;">Capture</v-btn>
           
         </div>
