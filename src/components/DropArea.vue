@@ -3,7 +3,6 @@
     
     <div class="hero">
       <label for="input-file" class="drop-area" @dragover.prevent="handleDragOver" @drop.prevent="handleDrop">
-        
         <div v-if="!imgLink" id="img-view" class="d-flex flex-column align-center">
           <!-- <img src="../assets/icon-upload.png"> -->
           <div class="d-flex ">
@@ -17,7 +16,6 @@
         <!-- <p class="mt-4"><span class="centered-text">capture</span></p> -->
         <v-text-field type="file" accept="image/*" id="input-file" hidden @change="uploadImage"></v-text-field>
       </label>
-      
     </div>
   </template>
   
@@ -110,9 +108,9 @@ label {
     margin-top: 25px;
 }
 .uploaded-img{
-    max-width: 250px; /* Limit the width to not exceed the drop area */
-    max-height: 250px; /* Limit the height to not exceed the drop area */
-    border-radius: 20px; /* Maintain the border-radius */
+    max-width: 250px; 
+    max-height: 250px; 
+    border-radius: 20px; 
     
     object-fit: contain;
     top: 0;

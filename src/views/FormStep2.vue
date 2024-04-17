@@ -33,6 +33,14 @@
             <DropArea/>
         </v-col>
       </v-row>
+      <v-row>
+        <v-col cols="5">
+          <div style="max-width:250px; max-height:250px">
+            
+          </div>
+          <Camera/>
+        </v-col>
+      </v-row>
   
       <v-row class="d-flex justify-end">
         <v-col cols="3">
@@ -63,12 +71,14 @@
   //import DropZone from '@/components/DropZone';
   import DropArea from '@/components/DropArea';
   import { ref } from 'vue';
+  import Camera from '@/components/SelfieUpload.vue'
   
   export default {
     name: 'FormStep2',
     components: {
       //DropZone,
-      DropArea
+      DropArea,
+      Camera
       
     },
     setup() {
