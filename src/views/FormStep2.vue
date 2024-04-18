@@ -39,7 +39,7 @@
       <v-row>
         <v-col cols="5">
           <div class="d-flex align-start mt-9" style="max-width:250px; max-height:250px">
-        <label for=""><strong>Selfie Image</strong> <span class="required-star">*</span></label>
+        <label><strong>Selfie Image</strong> <span class="required-star">*</span></label>
     </div>
           <Camera/>
         </v-col>

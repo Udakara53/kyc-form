@@ -8,16 +8,16 @@
           </div>
           
           <camera v-if="showCamera" ref="camera" :resolution="{ width: 1280, height: 720 }" autoplay class=""></camera>
-          <v-btn v-else @click="startCamera" class="mt-4" style="background-color: #F54D4D; color:white; text-transform: none;">Capture</v-btn>
+          <v-btn v-else @click="startCamera" class="mt-4 selfie-btn">Capture</v-btn>
           
         </div>
         <!-- Display the captured or uploaded image -->
         <div v-if="imgLink" class="uploaded-img-div">
           <v-img :src="imgLink" class="uploaded-img"></v-img>
-          <v-btn @click="clearImage" style="background-color: #F54D4D; color:white; text-transform: none;">Recapture</v-btn>
+          <v-btn @click="clearImage" class="selfie-btn">Recapture</v-btn>
         </div>
         <!-- Button to take a snapshot -->
-        <v-btn v-if="showCamera" @click="takeSnapshot" style="background-color: #F54D4D; color:white; text-transform: none;">Capture</v-btn>
+        <v-btn v-if="showCamera" @click="takeSnapshot" class="selfie-btn">Capture</v-btn>
         <!-- Hidden file input for uploads -->
         <input type="file" accept="image/*" hidden @change="uploadImage">
       </div>
@@ -110,6 +110,18 @@ export default {
 
 #img-view img {
   width: 100px;
+}
+.selfie-btn{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  text-align: center;
+  background:#F54D4D; 
+  padding:5px 15px; 
+  line-height: 0.8;
+  border-radius:37px; 
+  color:#FFFFFF;
+  text-transform: none;
 }
 </style>
 
