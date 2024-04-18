@@ -2,7 +2,7 @@
     <!--  -->
     
     <div class="hero">
-      <label for="input-file" class="drop-area" @dragover.prevent="handleDragOver" @drop.prevent="handleDrop">
+      <label :for="id" class="drop-area" @dragover.prevent="handleDragOver" @drop.prevent="handleDrop">
         <div v-if="!imgLink" id="img-view" class="d-flex flex-column align-center">
           <div class="d-flex ">
             <v-img src="../assets/icon-upload.png" width="66px" height="75px" cover class="icon-upload mt-3"></v-img>
@@ -13,7 +13,7 @@
             <v-img v-if="imgLink" :src="imgLink" class="uploaded-img" ></v-img>
         </div>
         <p class="mt-4"><span class="centered-text">Capture</span></p>
-        <v-text-field type="file" accept="image/*" id="input-file" hidden @change="uploadImage" style="opacity:0;"></v-text-field>
+        <v-file-input :id="id" type="file"  accept="image/*" hidden @change="uploadImage" style="opacity:0;"></v-file-input>
       </label>
     </div>
   </template>
@@ -23,13 +23,21 @@
   
   export default {
     name: 'DropArea',
-    setup() {
+    emits: ['update-image'],
+    props: {
+      id: {
+        type: String,
+        required: true
+      }
+    },
+    setup(props, { emit }) {
       const imgLink = ref('');
   
       const uploadImage = (event) => {
         const file = event.target.files[0];
         if (file) {
           imgLink.value = URL.createObjectURL(file);
+          emit('update-image', file);
         }
       };
   
@@ -41,6 +49,7 @@
         const file = event.dataTransfer.files[0];
         if (file) {
           imgLink.value = URL.createObjectURL(file);
+          emit('update-image', file);
         }
       };
   

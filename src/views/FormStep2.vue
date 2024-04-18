@@ -21,19 +21,20 @@
         </v-col>
       </v-row> -->
 
-      <v-row>
+      <v-form @submit.prevent>
+        <v-row>
         <v-col cols="5">
             <div class="d-flex align-start mt-9" style="max-width:250px; max-height:250px">
         <label for=""><strong>NIC / DL front image</strong> <span class="required-star">*</span></label>
     </div>
-            <DropArea/>
+            <DropArea id="nic-front"    @update-image="updateNicFront"/>
         </v-col>
         <v-col cols="2"></v-col>
         <v-col cols="5">
             <div class="d-flex align-start mt-9" style="max-width:250px; max-height:250px">
-        <label for=""><strong>NIC / DL front image</strong> <span class="required-star">*</span></label>
+        <label for=""><strong>NIC / DL rear image</strong> <span class="required-star">*</span></label>
     </div>
-            <DropArea/>
+            <DropArea id="nic-rear" @update-image="updateNicRear"/>
         </v-col>
       </v-row>
       <v-row>
@@ -44,6 +45,7 @@
           <Camera/>
         </v-col>
       </v-row>
+      </v-form>
   
       <v-row class="d-flex justify-end" v-if="showButtons">
         <v-col cols="3">
@@ -60,7 +62,7 @@
           color="#F54D4D"
           @click="continueToNextStep"
           class="custom-btn py-6"
-          style="background-color: #f54d4d; color: #ffffff; width: 299px"
+          style="background-color: #f54d4d; color: #ffffff; width: 299px" 
           >Let's Continue</v-btn
         >
         </v-col>
@@ -74,6 +76,7 @@
   import DropArea from '@/components/DropArea';
   import { ref } from 'vue';
   import Camera from '@/components/SelfieUpload.vue'
+  import { useKycFormStore } from '@/stores/FormStore';
   
   export default {
     name: 'FormStep2',
@@ -97,6 +100,18 @@
       const idFront = ref({ preview: null });
       const idRear = ref({ preview: null });
       const selfie = ref(null);
+
+      const store = useKycFormStore();
+
+      const updateNicFront = (file) => {
+        console.log('this is updateNic',file)
+      store.updateImage('nicFront', file);
+    };
+
+    const updateNicRear = (file) => {
+      store.updateImage('nicRear', file);
+    };
+
   
       const captureSelfie = () => {
         // Placeholder function for capturing a selfie
@@ -130,6 +145,8 @@
         selectedFile,
         drop,
         dropzoneFile,
+        updateNicFront,
+        updateNicRear
       };
     },
   };
