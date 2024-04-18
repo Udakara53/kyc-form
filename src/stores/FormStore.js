@@ -2,36 +2,33 @@ import { defineStore } from 'pinia';
 
 export const useKycFormStore = defineStore('kycForm', {
   state: () => ({
-    currentStep: 1,
     formData: {
-      title: '',
-      fullName: '',
-      mobileNumber: '',
-      email: '',
-      nicNumber: '',
-      nationality: '',
+      personalDetails: {
+        title: '',
+        fullName: '',
+        mobileNumber: '',
+        email: '',
+        nicNumber: '',
+        nationality: ''
+      },
       images: {
         nicFront: null,
         nicRear: null,
-        selfie: null,
-      },
-    },
+        selfie: null
+      }
+    }
   }),
-  actions: {
-    setStep(step) {
-      this.currentStep = step;
-    },
-    updateTitle(value) {
-      this.formData.title = value;
-    },
-    updateFullName(value) {
-      this.formData.fullName = value;
-    },
-    // Add update methods for the rest of your form fields
-    // Add logic to handle image uploads and setting image data
-    submitForm() {
-      // Perform form submission logic
-      // Show success message or modal
-    },
+  getters: {
+    // Add getters if you need to derive any computed properties from the state
   },
+  actions: {
+    updatePersonalDetails(details) {
+      this.formData.personalDetails = { ...this.formData.personalDetails, ...details };
+    },
+    updateImage(key, image) {
+      if (Object.prototype.hasOwnProperty.call(this.formData.images, key)) {
+        this.formData.images[key] = image;
+      }
+    }
+  }
 });
