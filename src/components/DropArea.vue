@@ -5,12 +5,12 @@
       <label :for="id" class="drop-area" @dragover.prevent="handleDragOver" @drop.prevent="handleDrop">
         <div v-if="!imgLink" id="img-view" class="d-flex flex-column align-center">
           <div class="d-flex ">
-            <v-img src="../assets/icon-upload.png" width="66px" height="75px" cover class="icon-upload mt-3"></v-img>
+            <v-img id="icon-1" src="../assets/icon-upload.png" width="66px" height="75px" cover class="icon-upload mt-3"></v-img>
           </div>
           <p class="drop-p-tag">Drop your image here <br>or <br></p>
         </div>
         <div class="uploaded-img-div">
-            <v-img v-if="imgLink" :src="imgLink" class="uploaded-img" ></v-img>
+            <v-img id="icon-2" v-if="imgLink" :src="imgLink" class="uploaded-img" ></v-img>
         </div>
         <p class="mt-4"><span class="centered-text">Capture</span></p>
         <v-file-input :id="id" type="file" accept="image/*" hidden @change="uploadImage" style="opacity:0;"></v-file-input>

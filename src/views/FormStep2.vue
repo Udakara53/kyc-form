@@ -42,11 +42,18 @@
           <div class="d-flex align-start mt-9" style="max-width:250px; max-height:250px">
         <label><strong>Selfie Image</strong> <span class="required-star">*</span></label>
     </div>
-          <Camera/>
+          <SelfieUpload/>
+        </v-col>
+        <v-col cols="2"></v-col>
+        <v-col cols="5">
+          <div class="d-flex align-start mt-9" style="max-width:250px; max-height:250px">
+        <label><strong>Common Image</strong> <span class="required-star">*</span></label>
+    </div>
+          <CommonUpload/>
         </v-col>
       </v-row>
       </v-form>
-  
+      <v-row class="mb-9"></v-row>
       <v-row class="d-flex justify-end" v-if="showButtons">
         <v-col cols="3">
           <v-btn
@@ -75,14 +82,16 @@
   import { useRouter } from 'vue-router';
   import DropArea from '@/components/DropArea';
   import { ref } from 'vue';
-  import Camera from '@/components/SelfieUpload.vue'
+  import SelfieUpload from '@/components/SelfieUpload.vue'
   import { useKycFormStore } from '@/stores/FormStore';
+  import CommonUpload from '@/components/CommonUpload'
   
   export default {
     name: 'FormStep2',
     components: {
       DropArea,
-      Camera,  
+      SelfieUpload,
+      CommonUpload  
     },
     props: {
     showHeader: {
