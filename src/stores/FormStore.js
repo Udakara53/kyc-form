@@ -28,6 +28,8 @@ export const useKycFormStore = defineStore('kycForm', {
     updateImage(key, image) {
       if (Object.prototype.hasOwnProperty.call(this.formData.images, key)) {
         this.formData.images[key] = image;
+      }else{
+        console.error("Invalid key for image data");
       }
     }
   }

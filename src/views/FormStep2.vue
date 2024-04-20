@@ -82,8 +82,7 @@
     name: 'FormStep2',
     components: {
       DropArea,
-      Camera
-      
+      Camera,  
     },
     props: {
     showHeader: {
@@ -104,11 +103,12 @@
       const store = useKycFormStore();
 
       const updateNicFront = (file) => {
-        console.log('this is updateNic',file)
+        
       store.updateImage('nicFront', file);
     };
 
     const updateNicRear = (file) => {
+      console.log('this is updateNic rear',file)
       store.updateImage('nicRear', file);
     };
 

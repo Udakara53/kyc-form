@@ -13,7 +13,7 @@
             <v-img v-if="imgLink" :src="imgLink" class="uploaded-img" ></v-img>
         </div>
         <p class="mt-4"><span class="centered-text">Capture</span></p>
-        <v-file-input :id="id" type="file"  accept="image/*" hidden @change="uploadImage" style="opacity:0;"></v-file-input>
+        <v-file-input :id="id" type="file" accept="image/*" hidden @change="uploadImage" style="opacity:0;"></v-file-input>
       </label>
     </div>
   </template>
@@ -32,6 +32,7 @@
     },
     setup(props, { emit }) {
       const imgLink = ref('');
+
   
       const uploadImage = (event) => {
         const file = event.target.files[0];
