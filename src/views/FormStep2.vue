@@ -27,14 +27,16 @@
             <div class="d-flex align-start mt-9" style="max-width:250px; max-height:250px">
         <label for=""><strong>NIC / DL front image</strong> <span class="required-star">*</span></label>
     </div>
-            <DropArea id="nic-front"    @update-image="updateNicFront"/>
+            <!-- <DropArea id="nic-front"    @update-image="updateNicFront"/> -->
+            <CommonUpload id="nic-front" @update-image="updateNicFront"/>
         </v-col>
         <v-col cols="2"></v-col>
         <v-col cols="5">
             <div class="d-flex align-start mt-9" style="max-width:250px; max-height:250px">
         <label for=""><strong>NIC / DL rear image</strong> <span class="required-star">*</span></label>
     </div>
-            <DropArea id="nic-rear" @update-image="updateNicRear"/>
+            <!-- <DropArea id="nic-rear" @update-image="updateNicRear"/> -->
+            <CommonUpload id="nic-rear" @update-image="updateNicRear"/>
         </v-col>
       </v-row>
       <v-row>
@@ -42,14 +44,8 @@
           <div class="d-flex align-start mt-9" style="max-width:250px; max-height:250px">
         <label><strong>Selfie Image</strong> <span class="required-star">*</span></label>
     </div>
-          <SelfieUpload/>
-        </v-col>
-        <v-col cols="2"></v-col>
-        <v-col cols="5">
-          <div class="d-flex align-start mt-9" style="max-width:250px; max-height:250px">
-        <label><strong>Common Image</strong> <span class="required-star">*</span></label>
-    </div>
-          <CommonUpload/>
+          <!-- <SelfieUpload/> -->
+          <CommonUpload id="selfie"/>
         </v-col>
       </v-row>
       </v-form>
@@ -80,17 +76,16 @@
   
   <script>
   import { useRouter } from 'vue-router';
-  import DropArea from '@/components/DropArea';
   import { ref } from 'vue';
-  import SelfieUpload from '@/components/SelfieUpload.vue'
+  /*import DropArea from '@/components/DropArea';*/
+  /*import SelfieUpload from '@/components/SelfieUpload.vue'*/
   import { useKycFormStore } from '@/stores/FormStore';
-  import CommonUpload from '@/components/CommonUpload'
+  import CommonUpload from '@/components/CommonUpload';
+  
   
   export default {
     name: 'FormStep2',
     components: {
-      DropArea,
-      SelfieUpload,
       CommonUpload  
     },
     props: {
@@ -112,12 +107,10 @@
       const store = useKycFormStore();
 
       const updateNicFront = (file) => {
-        
       store.updateImage('nicFront', file);
     };
 
     const updateNicRear = (file) => {
-      console.log('this is updateNic rear',file)
       store.updateImage('nicRear', file);
     };
 

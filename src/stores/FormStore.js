@@ -18,9 +18,13 @@ export const useKycFormStore = defineStore('kycForm', {
       }
     }
   }),
+  
   getters: {
-    // Add getters if you need to derive any computed properties from the state
+    getImage: (state) => (key) => {
+      return state.formData.images[key];
+    }
   },
+
   actions: {
     updatePersonalDetails(details) {
       this.formData.personalDetails = { ...this.formData.personalDetails, ...details };
