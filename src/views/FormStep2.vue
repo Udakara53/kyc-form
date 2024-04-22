@@ -28,7 +28,7 @@
         <label for=""><strong>NIC / DL front image</strong> <span class="required-star">*</span></label>
     </div>
             <!-- <DropArea id="nic-front"    @update-image="updateNicFront"/> -->
-            <CommonUpload id="nic-front" @update-image="updateNicFront"/>
+            <CommonUpload id="nic-front" :imageType="'nicFront'" />
         </v-col>
         <v-col cols="2"></v-col>
         <v-col cols="5">
@@ -36,7 +36,7 @@
         <label for=""><strong>NIC / DL rear image</strong> <span class="required-star">*</span></label>
     </div>
             <!-- <DropArea id="nic-rear" @update-image="updateNicRear"/> -->
-            <CommonUpload id="nic-rear" @update-image="updateNicRear"/>
+            <CommonUpload id="nic-rear" :imageType="'nicRear'"/>
         </v-col>
       </v-row>
       <v-row>
@@ -45,7 +45,7 @@
         <label><strong>Selfie Image</strong> <span class="required-star">*</span></label>
     </div>
           <!-- <SelfieUpload/> -->
-          <CommonUpload id="selfie"/>
+          <CommonUpload id="selfie" :imageType="'selfie'"/>
         </v-col>
       </v-row>
       </v-form>

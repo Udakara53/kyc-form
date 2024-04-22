@@ -26,23 +26,34 @@
   <script>
 import Camera from 'simple-vue-camera';
 import { ref } from 'vue';
+import { useKycFormStore } from '@/stores/FormStore';
 
 export default {
+  props: ['imageType'],
   components: {
     Camera
   },
-  setup() {
+  setup(props) {
+    const store = useKycFormStore();
     const camera = ref(null);
-    const imgLink = ref(null);
+    const imgLink = ref(store.getImage(props.imageType));
     const showCamera = ref(false);
     const fileInput = ref(null); // Reference to the file input
 
-    const uploadImage = event => {
+    const uploadImage = (event) => {
       const file = event.target.files[0];
-      if (file) {
+      const reader = new FileReader();
+      /*if (file) {
         imgLink.value = URL.createObjectURL(file);
+        store.updateImage(props.imageType, imgLink.value);
         showCamera.value = false; // Hide camera after upload
-      }
+      }*/
+      reader.onload = () => {
+        const imageData = reader.result;
+        imgLink.value = imageData;
+        store.updateImage(props.imageType, imageData);  // Save image data to store
+      };
+      reader.readAsDataURL(file);
     };
 
     const triggerFileInput = () => {
@@ -60,11 +71,13 @@ export default {
       }
       const snapshot = await camera.value.snapshot();
       imgLink.value = URL.createObjectURL(snapshot);
+      store.updateImage(props.imageType, imgLink.value);
       showCamera.value = false; // Hide camera after taking snapshot
     };
 
     const clearImage = () => {
       imgLink.value = null;
+      store.updateImage(props.imageType, null);
       startCamera(); // Restart camera for another capture
     };
 
