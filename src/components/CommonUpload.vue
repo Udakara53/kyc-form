@@ -18,7 +18,7 @@
         <!-- Button to take a snapshot -->
         <v-btn v-if="showCamera" @click="takeSnapshot" class="selfie-btn">Capture</v-btn>
         <!-- Hidden file input for uploads -->
-        <input type="file" accept="image/*" ref="fileInput" hidden @change="uploadImage">
+        <input type="file" accept="image/*" ref="fileInput" hidden @change="uploadImage" required>
       </div>
     </div>
   </template>

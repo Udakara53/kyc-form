@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
+    "@vueuse/core": "^10.9.0",
     "core-js": "^3.8.3",
     "pinia": "^2.1.7",
     "roboto-fontface": "*",
@@ -43,7 +44,8 @@
       "eslint:recommended"
     ],
     "parserOptions": {
-      "parser": "@babel/eslint-parser"
+      "parser": "@babel/eslint-parser",
+      "requireConfigFile": false
     },
     "rules": {}
   },

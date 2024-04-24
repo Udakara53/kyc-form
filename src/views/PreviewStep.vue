@@ -8,7 +8,7 @@
       <p class="poppins-paragraph mb-8">feature</p>
       </div>
       <FormStep1 :showHeader="false" :showButtons="false" />
-    <FormStep2 :showHeader="false" :showButtons="false" />
+      <FormStep2 :showHeader="false" :showButtons="false" />
     <v-container class="pa-9" style="width: 60%">
     <v-row class="d-flex justify-end">
         <!-- <v-col cols="5"></v-col> -->

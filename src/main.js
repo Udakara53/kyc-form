@@ -6,6 +6,7 @@ import router from './router'
 import { createPinia } from 'pinia'; 
 
 
+
 loadFonts()
 
 const pinia = createPinia();
