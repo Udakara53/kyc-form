@@ -50,7 +50,7 @@
       </v-row>
       </v-form>
       <v-row class="mb-9"></v-row>
-      <v-row class="d-flex justify-end" v-if="showButtons">
+      <v-row class="d-flex justify-end" v-if="props.showButtons">
         <v-col cols="3">
           <v-btn
           text
@@ -74,85 +74,33 @@
     
   </template>
   
-  <script>
-  import { useRouter } from 'vue-router';
-  import { ref } from 'vue';
-  /*import DropArea from '@/components/DropArea';*/
-  /*import SelfieUpload from '@/components/SelfieUpload.vue'*/
-  import { useKycFormStore } from '@/stores/FormStore';
-  import CommonUpload from '@/components/CommonUpload';
-  
-  
-  export default {
-    name: 'FormStep2',
-    components: {
-      CommonUpload  
-    },
-    props: {
-    showHeader: {
-      type: Boolean,
-      default: true
-    },
-    showButtons: {
-      type: Boolean,
-      default: true
-    }
+  <script setup>
+import { useRouter } from 'vue-router';
+import CommonUpload from '@/components/CommonUpload';
+import {defineProps} from 'vue';
+
+// Use defineProps to declare the component's props
+const props = defineProps({
+  showHeader: {
+    type: Boolean,
+    default: true
   },
-    setup() {
-      const router = useRouter();
-      const idFront = ref({ preview: null });
-      const idRear = ref({ preview: null });
-      const selfie = ref(null);
+  showButtons: {
+    type: Boolean,
+    default: true
+  }
+});
 
-      const store = useKycFormStore();
+const router = useRouter();
 
-      const updateNicFront = (file) => {
-      store.updateImage('nicFront', file);
-    };
+const continueToNextStep = () => {
+  router.push({ name: 'Preview' });
+};
 
-    const updateNicRear = (file) => {
-      store.updateImage('nicRear', file);
-    };
-
-  
-      const captureSelfie = () => {
-        // Placeholder function for capturing a selfie
-      };
-  
-      const continueToNextStep = () => {
-        router.push({ name: 'Preview' }); 
-      };
-  
-      const goBack = () => {
-        router.push({ name: 'Step1' }); 
-      };
-  
-      let dropzoneFile = ref('');
-  
-      const drop = (e) => {
-        dropzoneFile.value = e.dataTransfer.files[0];
-      };
-  
-      const selectedFile = () => {
-        dropzoneFile.value = document.querySelector('.dropzoneFile').files[0];
-      };
-  
-      return {
-        idFront,
-        idRear,
-        selfie,
-        captureSelfie,
-        continueToNextStep,
-        goBack,
-        selectedFile,
-        drop,
-        dropzoneFile,
-        updateNicFront,
-        updateNicRear
-      };
-    },
-  };
-  </script>
+const goBack = () => {
+  router.push({ name: 'Step1' });
+};
+</script>
   
   <style>
   h1 {

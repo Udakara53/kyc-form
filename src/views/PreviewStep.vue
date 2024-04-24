@@ -42,34 +42,20 @@
     </v-container>
 </template>
 
-<script>
+<script setup>
 import { useRouter } from 'vue-router';
 import FormStep1 from '@/views/FormStep1.vue'
 import FormStep2 from '@/views/FormStep2.vue'
 
-export default{
-    name:'PreviewStep',
-    components:{
-        FormStep1,
-        FormStep2
+const router = useRouter();
 
-    },
-    setup(){
-        const router = useRouter();
-        const SubmitForm = () => {
-        router.push({ name: 'Preview' }); 
-      };
-  
-      const goBack = () => {
-        router.push({ name: 'Step2' }); 
-      };
+const SubmitForm = () => {
+  router.push({ name: 'Preview' });
+};
 
-      return {
-        goBack,
-        SubmitForm
-      }
-    }
-}
+const goBack = () => {
+  router.push({ name: 'Step2' });
+};
 
 </script>
 

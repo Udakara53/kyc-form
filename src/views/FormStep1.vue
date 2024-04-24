@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-9" style="width: 60%">
-    <div v-if="showHeader">
+    <div v-if="props.showHeader">
       <h1 style="">KYC Form</h1>
       <p class="poppins-paragraph mt-5">
         Please enter your valid Name & email address to use all of our
@@ -20,10 +20,12 @@
               name="title"
               id="title"
               v-model="title"
+              :rules="titleRules"
               :items="['Mr.', 'Mrs.', 'Miss']"
               rounded
               variant="outlined"
               class="no-shadow-select"
+              required
             ></v-select>
           </v-col>
           <v-col cols="9" class="text-left">
@@ -33,9 +35,11 @@
             >
             <v-text-field
               id="fullname"
+              :rules="nameRules"
               v-model="fullname"
               rounded
               variant="outlined"
+              required
             ></v-text-field>
           </v-col>
         </v-row>
@@ -52,6 +56,7 @@
               variant="outlined"
               style="box-shadow: none"
               :disabled="true"
+              required
             ></v-text-field>
           </v-col>
           <v-col class="text-left">
@@ -62,8 +67,10 @@
             <v-text-field
               id="email"
               v-model="email"
+              :rules="emailRules"
               rounded
               variant="outlined"
+              required
             ></v-text-field>
           </v-col>
         </v-row>
@@ -76,9 +83,11 @@
             <v-text-field
               id="nicNumber"
               v-model="nicNumber"
+              :rules="nicNumberRules"
               rounded
               outlined
               variant="outlined"
+              required
             ></v-text-field>
           </v-col>
           <v-col class="text-left">
@@ -89,14 +98,16 @@
             <v-select
               id="nationality"
               v-model="nationality"
+              :rules="nationalityRules"
               :items="['US', 'Sri Lanka', 'Other']"
               rounded
               outlined
               variant="outlined"
+              required
             ></v-select>
           </v-col>
         </v-row>
-        <v-row class="d-flex justify-end" v-if="showButtons">
+        <v-row class="d-flex justify-end" v-if="props.showButtons">
           <!-- <v-col cols="5"></v-col> -->
           <v-col cols="3">
             <v-btn
@@ -126,85 +137,74 @@
   </v-container>
 </template>
 
-<script>
+<script setup>
 import { useRouter } from 'vue-router';
 import { useKycFormStore } from '@/stores/FormStore';
-import { computed } from 'vue';
-export default {
-  name: 'FormStep1',
-  data() {
-    return {
-      valid: false,
+import { ref, computed ,defineProps} from 'vue';
+import {nameRules, emailRules, nicNumberRules, nationalityRules, titleRules} from '@/validations/Validation';
 
-    };
+// Props definition with defineProps (if you use TypeScript or want better IDE integration)
+const props = defineProps({
+  showHeader: {
+    type: Boolean,
+    default: true,
   },
-  props: {
-    showHeader: {
-      type: Boolean,
-      default: true,
-    },
-    showButtons: {
-      type: Boolean,
-      default: true,
-    },
+  showButtons: {
+    type: Boolean,
+    default: true,
   },
-  setup() {
-    const router = useRouter();
-    const store = useKycFormStore();
-    
+});
 
-    const goBack = () => {
-      router.push({ name: 'Step1' });
-    };
+const router = useRouter();
+const store = useKycFormStore();
 
-    function continueToNextStep() {
-      // Add validation or other logic as needed
-      router.push({ name: 'Step2' }); // Proceed to FormStep2
-    }
-    // Computed properties to bind form fields with the store
-    const title = computed({
-      get: () => store.formData.personalDetails.title,
-      set: value => store.updatePersonalDetails({ title: value })
-    });
+// Reactive data equivalent to 'data()' in Options API
+const valid = ref(false);
 
-    const fullname = computed({
-      get: () => store.formData.personalDetails.fullName,
-      set: (value) => store.updatePersonalDetails({ fullName: value }),
-    });
-
-    const mobileNumber = computed({
-      get: () => store.formData.personalDetails.mobileNumber,
-      set: (value) => store.updatePersonalDetails({ mobileNumber: value }),
-    });
-
-    const email = computed({
-      get: () => store.formData.personalDetails.email,
-      set: (value) => store.updatePersonalDetails({ email: value }),
-    });
-
-    const nicNumber = computed({
-      get: () => store.formData.personalDetails.nicNumber,
-      set: (value) => store.updatePersonalDetails({ nicNumber: value }),
-    });
-
-    const nationality = computed({
-      get: () => store.formData.personalDetails.nationality,
-      set: (value) => store.updatePersonalDetails({ nationality: value }),
-    });
-
-    return {
-      title,
-      fullname,
-      mobileNumber,
-      email,
-      nicNumber,
-      nationality,
-      continueToNextStep,
-      goBack,
-    };
-  },
+// Methods
+const goBack = () => {
+  router.push({ name: 'Step1' });
 };
+
+const continueToNextStep = () => {
+  // Add validation or other logic as needed
+  if (valid.value) { // Example check on the form validity
+    router.push({ name: 'Step2' }); // Proceed to FormStep2
+  }
+};
+
+// Computed properties to bind form fields with the store
+const title = computed({
+  get: () => store.formData.personalDetails.title,
+  set: value => store.updatePersonalDetails({ title: value })
+});
+
+const fullname = computed({
+  get: () => store.formData.personalDetails.fullName,
+  set: value => store.updatePersonalDetails({ fullName: value })
+});
+
+const mobileNumber = computed({
+  get: () => store.formData.personalDetails.mobileNumber,
+  set: value => store.updatePersonalDetails({ mobileNumber: value })
+});
+
+const email = computed({
+  get: () => store.formData.personalDetails.email,
+  set: value => store.updatePersonalDetails({ email: value })
+});
+
+const nicNumber = computed({
+  get: () => store.formData.personalDetails.nicNumber,
+  set: value => store.updatePersonalDetails({ nicNumber: value })
+});
+
+const nationality = computed({
+  get: () => store.formData.personalDetails.nationality,
+  set: value => store.updatePersonalDetails({ nationality: value })
+});
 </script>
+
 
 <style>
 h1 {
