@@ -7,7 +7,7 @@
       </p>
       <p class="poppins-paragraph mb-8">feature</p>
       </div>
-      <FormStep1 :showHeader="false" :showButtons="false" />
+      <FormStep1 :showHeader="false" :showButtons="false" :previewState="true"/>
       <FormStep2 :showHeader="false" :showButtons="false" />
     <v-container class="pa-9" style="width: 60%">
     <v-row class="d-flex justify-end">

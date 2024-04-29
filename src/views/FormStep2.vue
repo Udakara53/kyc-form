@@ -28,7 +28,7 @@
         <label for=""><strong>NIC / DL front image</strong> <span class="required-star">*</span></label>
     </div>
             <!-- <DropArea id="nic-front"    @update-image="updateNicFront"/> -->
-            <CommonUpload id="nic-front" :imageType="'nicFront'" />
+            <CommonUpload id="nic-front" :showCapture=showButtons @update:valid="updateValid('nicFront', $event)" :imageType="'nicFront'" />
         </v-col>
         <v-col cols="2"></v-col>
         <v-col cols="5">
@@ -36,7 +36,7 @@
         <label for=""><strong>NIC / DL rear image</strong> <span class="required-star">*</span></label>
     </div>
             <!-- <DropArea id="nic-rear" @update-image="updateNicRear"/> -->
-            <CommonUpload id="nic-rear" :imageType="'nicRear'"/>
+            <CommonUpload id="nic-rear" :showCapture=showButtons @update:valid="updateValid('nicRear', $event)" :imageType="'nicRear'"/>
         </v-col>
       </v-row>
       <v-row>
@@ -45,7 +45,7 @@
         <label><strong>Selfie Image</strong> <span class="required-star">*</span></label>
     </div>
           <!-- <SelfieUpload/> -->
-          <CommonUpload id="selfie" :imageType="'selfie'"/>
+          <CommonUpload id="selfie" :showCapture=showButtons @update:valid="updateValid('selfie', $event)" :imageType="'selfie'"/>
         </v-col>
       </v-row>
       </v-form>
@@ -63,6 +63,7 @@
         <v-col cols="4">
           <v-btn
           color="#F54D4D"
+          
           @click="onSubmit"
           class="custom-btn py-6"
           style="background-color: #f54d4d; color: #ffffff; width: 299px" 
@@ -77,7 +78,8 @@
   <script setup>
 import { useRouter } from 'vue-router';
 import CommonUpload from '@/components/CommonUpload';
-import {defineProps, ref} from 'vue';
+import {defineProps, ref, onMounted} from 'vue';
+import { useKycFormStore } from '@/stores/FormStore';
 
 
 // Use defineProps to declare the component's props
@@ -94,20 +96,49 @@ const props = defineProps({
 
 const router = useRouter();
 const form = ref(null);
+const store = useKycFormStore();
+
+const validStates = ref({
+  nicFront: false,
+  nicRear: false,
+  selfie: false
+});
+
+function updateValid(type, isValid) {
+  validStates.value[type] = isValid;
+}
+
+function checkUploadsAndUpdateValidStates() {
+  validStates.value.nicFront = !!store.getImage('nicFront');
+  validStates.value.nicRear = !!store.getImage('nicRear');
+  validStates.value.selfie = !!store.getImage('selfie');
+}
+
+function onSubmit() {
+  if (Object.values(validStates.value).every(v => v)) {
+    continueToNextStep();
+  } else {
+    console.log('elese else')
+  }
+}
 
 const continueToNextStep = () => {
   router.push({ name: 'Preview' });
 };
 
-const onSubmit = ()=>{
+/*const onSubmit = ()=>{
   if (form.value && form.value.validate()){
     continueToNextStep();
   }
-}
+}*/
 
 const goBack = () => {
   router.push({ name: 'Step1' });
 };
+
+onMounted(() => {
+  checkUploadsAndUpdateValidStates();
+});
 </script>
   
   <style>

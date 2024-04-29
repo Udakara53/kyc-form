@@ -20,6 +20,7 @@
               name="title"
               id="title"
               v-model="title"
+              :disabled="previewState"
               :rules="titleRules"
               :items="['Mr.', 'Mrs.', 'Miss']"
               rounded
@@ -35,6 +36,7 @@
             >
             <v-text-field
               id="fullname"
+              :disabled="previewState"
               :rules="nameRules"
               v-model="fullname"
               rounded
@@ -67,6 +69,7 @@
             <v-text-field
               id="email"
               v-model="email"
+              :disabled="previewState"
               :rules="emailRules"
               rounded
               variant="outlined"
@@ -83,6 +86,7 @@
             <v-text-field
               id="nicNumber"
               v-model="nicNumber"
+              :disabled="previewState"
               :rules="nicNumberRules"
               rounded
               outlined
@@ -98,6 +102,7 @@
             <v-select
               id="nationality"
               v-model="nationality"
+              :disabled="previewState"
               :rules="nationalityRules"
               :items="['US', 'Sri Lanka', 'Other']"
               rounded
@@ -154,6 +159,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  previewState:{
+    type: Boolean,
+    default:false
+  }
 });
 
 const router = useRouter();

@@ -10,13 +10,17 @@
           <v-btn v-else @click="startCamera" class="mt-4 selfie-btn">Capture</v-btn>
           
         </div>
+        
         <!-- Display the captured or uploaded image -->
         <div v-if="imgLink" class="uploaded-img-div">
           <v-img :src="imgLink" class="uploaded-img"></v-img>
-          <v-btn @click="clearImage" class="selfie-btn">Retake</v-btn>
+          <div v-if="showCapture"> 
+            <v-btn @click="clearImage" class="selfie-btn">Retake</v-btn>
+          </div>
         </div>
         <!-- Button to take a snapshot -->
         <v-btn v-if="showCamera" @click="takeSnapshot" class="selfie-btn">Capture</v-btn>
+      
         <!-- Hidden file input for uploads -->
         <!-- <input type="file" accept="image/*" ref="fileInput" hidden @change="uploadImage" required> -->
         <v-file-input v-model="file" type="file" :rules="imageRules" accept="image/*" ref="fileInput" :id="`input-file-${props.imageType}`" style="display: none;" @change="uploadImage"></v-file-input>
@@ -26,19 +30,32 @@
 
   <script setup>
 import Camera from 'simple-vue-camera';
-import { ref, defineProps } from 'vue';
+import { ref, defineProps, defineEmits, watch } from 'vue';
 import { useKycFormStore } from '@/stores/FormStore';
 import { imageRules } from '@/validations/Validation';
 
 const props = defineProps({
-  imageType: String
+  imageType: String,
+  showCapture: {
+    type: Boolean,
+    default: true
+  }
 });
 
 const store = useKycFormStore();
 const camera = ref(null);
 const showCamera = ref(false);
 const fileInput = ref(null);
-const file =ref(null);
+const file =ref([]);
+const isValid = ref(false);
+
+const emits = defineEmits(['update:valid']);
+
+watch(file, (newFile)=>{
+  isValid.value = !!newFile;
+  console.log('what is new file',isValid.value)
+  emits('update:valid',isValid.value)
+})
 
 // Reactive reference for image link, with a computed to fetch initial value from store
 const imgLink = ref(null);
@@ -48,7 +65,7 @@ imgLink.value = store.getImage(props.imageType);
 const uploadImage = (event) => {
   const fileData = event.target.files[0];
   if (fileData) {
-    file.value = fileData;
+    file.value = [fileData];
     const reader = new FileReader();
     reader.onload = () => {
       const imageData = reader.result;
@@ -79,11 +96,13 @@ const takeSnapshot = async () => {
   imgLink.value = URL.createObjectURL(snapshot);
   store.updateImage(props.imageType, imgLink.value);
   showCamera.value = false; // Hide camera after taking snapshot
+  emits('update:valid', true);
 };
 
 // Function to clear the image
 const clearImage = () => {
   imgLink.value = null;
+  file.value = []
   store.updateImage(props.imageType, null);
   startCamera(); // Restart camera for another capture
 };
