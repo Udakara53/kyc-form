@@ -125,6 +125,7 @@
             <v-btn
               color="#F54D4D"
               @click="continueToNextStep"
+              :disabled="!valid"
               class="custom-btn py-6"
               style="background-color: #f54d4d; color: #ffffff; width: 100%"
               ><!-- width: 299px; -->
@@ -171,6 +172,7 @@ const continueToNextStep = () => {
   if (valid.value) { // Example check on the form validity
     router.push({ name: 'Step2' }); // Proceed to FormStep2
   }
+
 };
 
 // Computed properties to bind form fields with the store

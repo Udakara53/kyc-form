@@ -19,7 +19,7 @@
         <v-btn v-if="showCamera" @click="takeSnapshot" class="selfie-btn">Capture</v-btn>
         <!-- Hidden file input for uploads -->
         <!-- <input type="file" accept="image/*" ref="fileInput" hidden @change="uploadImage" required> -->
-        <v-file-input type="file" accept="image/*" ref="fileInput" id="input-file" style="display: none;" @change="uploadImage"></v-file-input>
+        <v-file-input v-model="file" type="file" :rules="imageRules" accept="image/*" ref="fileInput" :id="`input-file-${props.imageType}`" style="display: none;" @change="uploadImage"></v-file-input>
       </div>
     </div>
   </template>
@@ -28,6 +28,7 @@
 import Camera from 'simple-vue-camera';
 import { ref, defineProps } from 'vue';
 import { useKycFormStore } from '@/stores/FormStore';
+import { imageRules } from '@/validations/Validation';
 
 const props = defineProps({
   imageType: String
@@ -37,6 +38,7 @@ const store = useKycFormStore();
 const camera = ref(null);
 const showCamera = ref(false);
 const fileInput = ref(null);
+const file =ref(null);
 
 // Reactive reference for image link, with a computed to fetch initial value from store
 const imgLink = ref(null);
@@ -44,15 +46,16 @@ imgLink.value = store.getImage(props.imageType);
 
 // Function to handle image upload
 const uploadImage = (event) => {
-  const file = event.target.files[0];
-  if (file) {
+  const fileData = event.target.files[0];
+  if (fileData) {
+    file.value = fileData;
     const reader = new FileReader();
     reader.onload = () => {
       const imageData = reader.result;
       imgLink.value = imageData;
       store.updateImage(props.imageType, imageData); // Save image data to store
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(fileData);
   }
 };
 

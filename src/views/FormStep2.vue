@@ -21,7 +21,7 @@
         </v-col>
       </v-row> -->
 
-      <v-form @submit.prevent>
+      <v-form ref="form" @submit.prevent>
         <v-row>
         <v-col cols="5">
             <div class="d-flex align-start mt-9" style="max-width:250px; max-height:250px">
@@ -63,7 +63,7 @@
         <v-col cols="4">
           <v-btn
           color="#F54D4D"
-          @click="continueToNextStep"
+          @click="onSubmit"
           class="custom-btn py-6"
           style="background-color: #f54d4d; color: #ffffff; width: 299px" 
           >Let's Continue</v-btn
@@ -77,7 +77,8 @@
   <script setup>
 import { useRouter } from 'vue-router';
 import CommonUpload from '@/components/CommonUpload';
-import {defineProps} from 'vue';
+import {defineProps, ref} from 'vue';
+
 
 // Use defineProps to declare the component's props
 const props = defineProps({
@@ -92,10 +93,17 @@ const props = defineProps({
 });
 
 const router = useRouter();
+const form = ref(null);
 
 const continueToNextStep = () => {
   router.push({ name: 'Preview' });
 };
+
+const onSubmit = ()=>{
+  if (form.value && form.value.validate()){
+    continueToNextStep();
+  }
+}
 
 const goBack = () => {
   router.push({ name: 'Step1' });
