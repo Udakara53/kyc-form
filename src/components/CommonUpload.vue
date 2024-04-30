@@ -7,7 +7,7 @@
             <p class="drop-p-tag">Click here  <br>or <br></p>
           <!-- Camera component if needed -->
           <Camera v-if="showCamera" ref="camera" :resolution="{ width: 1280, height: 720 }" autoplay></Camera>
-          <v-btn v-else @click="startCamera" class="mt-4 selfie-btn">Capture</v-btn>
+          <v-btn v-else @click="startCamera" class="mt-4 selfie-btn">Open Camera</v-btn>
           
         </div>
         
@@ -49,11 +49,10 @@ const fileInput = ref(null);
 const file =ref([]);
 const isValid = ref(false);
 
-const emits = defineEmits(['update:valid']);
+const emits = defineEmits(['update:valid','update:clear']);
 
 watch(file, (newFile)=>{
   isValid.value = !!newFile;
-  console.log('what is new file',isValid.value)
   emits('update:valid',isValid.value)
 })
 
@@ -105,7 +104,13 @@ const clearImage = () => {
   file.value = []
   store.updateImage(props.imageType, null);
   startCamera(); // Restart camera for another capture
+  emits('update:clear', false);
+
 };
+
+/*const emitTriggerCheck=()=>{
+  emit('checkUploadsAndUpdate')
+}*/
 
 </script>
 

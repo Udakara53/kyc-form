@@ -6,7 +6,7 @@ export const useKycFormStore = defineStore('kycForm', {
       personalDetails: {
         title: '',
         fullName: '',
-        mobileNumber: '+94 71 333 4455',
+        mobileNumber: '',
         emailAddress: '',
         nicNumber: '',
         nationality: ''

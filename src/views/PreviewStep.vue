@@ -40,17 +40,49 @@
       </v-col>
       </v-row>
     </v-container>
+    <div>
+      <!-- Dialog for submission confirmation -->
+      <!-- <SuccessDialog
+      :title="'Congratulations!'"
+      :message="'Your KYC data has been Submitted successfully.'"
+      v-model="dialogVisible"
+    /> -->
+    <v-dialog v-model="dialogVisible" persistent max-width="38%">
+      <v-card class="d-flex flex-column align-center pa-5"> <!-- Flex column to align items centrally -->
+        <v-img
+          class="my-2"
+          width="35%"
+          height="36.5%"
+          src="../assets/SubmitSuccess.png"
+        />
+        <v-card-title class="text-h5 my-2 custom-title">Congratulations!</v-card-title>
+        <v-card-text class="my-2">Your KYC data has been Submitted successfully.</v-card-text>
+        <v-card-actions class="justify-center my-2">
+          <v-btn class="ok-btn" text @click="dialogVisible = false">OK</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    </div>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router';
 import FormStep1 from '@/views/FormStep1.vue'
 import FormStep2 from '@/views/FormStep2.vue'
+import { useKycFormStore } from '@/stores/FormStore';
+import { ref } from 'vue';
+//import SuccessDialog from '@/components/SubmitSuccess.vue';
 
 const router = useRouter();
+const store = useKycFormStore();
+const dialogVisible = ref(false);
+
+
 
 const SubmitForm = () => {
-  router.push({ name: 'Preview' });
+  //dialogVisible.value = true;
+  dialogVisible.value = true;
+  console.log('Form Data:', store.formData);
 };
 
 const goBack = () => {
@@ -74,6 +106,28 @@ const goBack = () => {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.custom-title {
+  font-family: "Gotham", sans-serif;
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 52.8px;
+  text-align: center;
+  color: #F54D4D;
+}
+
+.ok-btn {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  text-align: center;
+  background:#F54D4D;
+  padding:5px 45px;
+  line-height: 0.8;
+  border-radius:5px;
+  color:#FFFFFF;
+  text-transform: none;
 }
 
 </style>

@@ -141,13 +141,29 @@
       </v-container>
     </v-form>
   </v-container>
+  <!-- contact popup start -->
+
+  <ContactModal
+    :message="'Just need phone number to login or created a new account'"
+    v-model="dialogVisibleContact"
+    :previewSectionModelValue=previewState
+  ></ContactModal>
+
+  <!-- contact popup over -->
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router';
 import { useKycFormStore } from '@/stores/FormStore';
-import { ref, computed ,defineProps} from 'vue';
-import {nameRules, emailRules, nicNumberRules, nationalityRules, titleRules} from '@/validations/Validation';
+import { ref, computed, defineProps, onMounted } from 'vue';
+import {
+  nameRules,
+  emailRules,
+  nicNumberRules,
+  nationalityRules,
+  titleRules,
+} from '@/validations/Validation';
+import ContactModal from '@/components/ContactModal';
 
 // Props definition with defineProps (if you use TypeScript or want better IDE integration)
 const props = defineProps({
@@ -159,14 +175,15 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  previewState:{
+  previewState: {
     type: Boolean,
-    default:false
-  }
+    default: false,
+  },
 });
 
 const router = useRouter();
 const store = useKycFormStore();
+const dialogVisibleContact = ref(false);
 
 // Reactive data equivalent to 'data()' in Options API
 const valid = ref(false);
@@ -176,46 +193,54 @@ const goBack = () => {
   router.push({ name: 'Step1' });
 };
 
+onMounted(()=>{
+  if(props.previewState){
+    dialogVisibleContact.value = false;
+  }else{
+    dialogVisibleContact.value = true;
+  }
+  
+})
+
 const continueToNextStep = () => {
   // Add validation or other logic as needed
-  if (valid.value) { // Example check on the form validity
+  if (valid.value) {
+    // Example check on the form validity
     router.push({ name: 'Step2' }); // Proceed to FormStep2
   }
-
 };
 
 // Computed properties to bind form fields with the store
 const title = computed({
   get: () => store.formData.personalDetails.title,
-  set: value => store.updatePersonalDetails({ title: value })
+  set: (value) => store.updatePersonalDetails({ title: value }),
 });
 
 const fullname = computed({
   get: () => store.formData.personalDetails.fullName,
-  set: value => store.updatePersonalDetails({ fullName: value })
+  set: (value) => store.updatePersonalDetails({ fullName: value }),
 });
 
 const mobileNumber = computed({
   get: () => store.formData.personalDetails.mobileNumber,
-  set: value => store.updatePersonalDetails({ mobileNumber: value })
+  set: (value) => store.updatePersonalDetails({ mobileNumber: value }),
 });
 
 const email = computed({
   get: () => store.formData.personalDetails.email,
-  set: value => store.updatePersonalDetails({ email: value })
+  set: (value) => store.updatePersonalDetails({ email: value }),
 });
 
 const nicNumber = computed({
   get: () => store.formData.personalDetails.nicNumber,
-  set: value => store.updatePersonalDetails({ nicNumber: value })
+  set: (value) => store.updatePersonalDetails({ nicNumber: value }),
 });
 
 const nationality = computed({
   get: () => store.formData.personalDetails.nationality,
-  set: value => store.updatePersonalDetails({ nationality: value })
+  set: (value) => store.updatePersonalDetails({ nationality: value }),
 });
 </script>
-
 
 <style>
 h1 {

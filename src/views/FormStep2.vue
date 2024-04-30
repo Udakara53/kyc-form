@@ -28,7 +28,7 @@
         <label for=""><strong>NIC / DL front image</strong> <span class="required-star">*</span></label>
     </div>
             <!-- <DropArea id="nic-front"    @update-image="updateNicFront"/> -->
-            <CommonUpload id="nic-front" :showCapture=showButtons @update:valid="updateValid('nicFront', $event)" :imageType="'nicFront'" />
+            <CommonUpload id="nic-front" @update:clear="updateClear('nicFront',$event)" :showCapture=showButtons @update:valid="updateValid('nicFront', $event)" :imageType="'nicFront'" />
         </v-col>
         <v-col cols="2"></v-col>
         <v-col cols="5">
@@ -36,7 +36,7 @@
         <label for=""><strong>NIC / DL rear image</strong> <span class="required-star">*</span></label>
     </div>
             <!-- <DropArea id="nic-rear" @update-image="updateNicRear"/> -->
-            <CommonUpload id="nic-rear" :showCapture=showButtons @update:valid="updateValid('nicRear', $event)" :imageType="'nicRear'"/>
+            <CommonUpload id="nic-rear" @update:clear="updateClear('nicRear',$event)" :showCapture=showButtons @update:valid="updateValid('nicRear', $event)" :imageType="'nicRear'"/>
         </v-col>
       </v-row>
       <v-row>
@@ -45,7 +45,7 @@
         <label><strong>Selfie Image</strong> <span class="required-star">*</span></label>
     </div>
           <!-- <SelfieUpload/> -->
-          <CommonUpload id="selfie" :showCapture=showButtons @update:valid="updateValid('selfie', $event)" :imageType="'selfie'"/>
+          <CommonUpload id="selfie" @update:clear="updateClear('selfie',$event)" :showCapture=showButtons @update:valid="updateValid('selfie', $event)" :imageType="'selfie'"/>
         </v-col>
       </v-row>
       </v-form>
@@ -63,7 +63,7 @@
         <v-col cols="4">
           <v-btn
           color="#F54D4D"
-          
+          :disabled="!allImagesUploaded"
           @click="onSubmit"
           class="custom-btn py-6"
           style="background-color: #f54d4d; color: #ffffff; width: 299px" 
@@ -78,7 +78,7 @@
   <script setup>
 import { useRouter } from 'vue-router';
 import CommonUpload from '@/components/CommonUpload';
-import {defineProps, ref, onMounted} from 'vue';
+import {defineProps, ref, onMounted, computed} from 'vue';
 import { useKycFormStore } from '@/stores/FormStore';
 
 
@@ -98,6 +98,7 @@ const router = useRouter();
 const form = ref(null);
 const store = useKycFormStore();
 
+
 const validStates = ref({
   nicFront: false,
   nicRear: false,
@@ -108,17 +109,25 @@ function updateValid(type, isValid) {
   validStates.value[type] = isValid;
 }
 
+function updateClear(type, isValid){
+  validStates.value[type] = isValid
+}
+
 function checkUploadsAndUpdateValidStates() {
   validStates.value.nicFront = !!store.getImage('nicFront');
   validStates.value.nicRear = !!store.getImage('nicRear');
   validStates.value.selfie = !!store.getImage('selfie');
 }
 
+const allImagesUploaded = computed(() => {
+  return Object.values(validStates.value).every(v => v);
+});
+
 function onSubmit() {
-  if (Object.values(validStates.value).every(v => v)) {
+  if (allImagesUploaded.value) {
     continueToNextStep();
   } else {
-    console.log('elese else')
+    console.log('not continue to next step')
   }
 }
 
