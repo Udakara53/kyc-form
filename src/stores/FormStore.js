@@ -35,6 +35,9 @@ export const useKycFormStore = defineStore('kycForm', {
       }else{
         console.error("Invalid key for image data");
       }
+    },
+    updateMobileNumber(mobileNumberWithCode) { // New method to handle mobile number update
+      this.formData.personalDetails.mobileNumber = mobileNumberWithCode;
     }
   }
 });

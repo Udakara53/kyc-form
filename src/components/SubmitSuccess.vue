@@ -10,7 +10,8 @@
         <v-card-title class="text-h5 my-2 custom-title">{{ title }}</v-card-title>
         <v-card-text class="my-2">{{ message }}</v-card-text>
         <v-card-actions class="justify-center my-2">
-          <v-btn class="selfie-btn" text @click="closeDialog">OK</v-btn>
+          <v-btn class="custom-btn" text @click="closeDialog">Back</v-btn>
+          <v-btn class="selfie-btn" text @click="closeDialog">Continue</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -72,5 +73,17 @@
   text-align: center;
   color: #F54D4D;
 }
+.custom-btn {
+    border-radius: 10px;
+    font-weight: 500;
+    line-height: 30px;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    height: 60px;
+    border-radius: 10px;
+    opacity: 1;
+    font-weight: 500;
+    text-transform: none;
+  }
   </style>
   

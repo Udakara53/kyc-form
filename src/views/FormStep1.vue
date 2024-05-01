@@ -148,6 +148,11 @@
     v-model="dialogVisibleContact"
     :previewSectionModelValue=previewState
   ></ContactModal>
+  <!-- <otp-input-modal
+    :model-value="otpModalVisible"
+    @update:modelValue="otpModalVisible = $event"
+    @verified="handleOtpVerification"
+  /> -->
 
   <!-- contact popup over -->
 </template>
@@ -155,7 +160,8 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { useKycFormStore } from '@/stores/FormStore';
-import { ref, computed, defineProps, onMounted } from 'vue';
+// import OtpInputModal from '@/components/OtpInputModal.vue'; 
+import { ref, computed, defineProps, onMounted, watch } from 'vue';
 import {
   nameRules,
   emailRules,
@@ -184,6 +190,7 @@ const props = defineProps({
 const router = useRouter();
 const store = useKycFormStore();
 const dialogVisibleContact = ref(false);
+// const otpModalVisible = ref(false);
 
 // Reactive data equivalent to 'data()' in Options API
 const valid = ref(false);
@@ -194,11 +201,12 @@ const goBack = () => {
 };
 
 onMounted(()=>{
-  if(props.previewState){
+  /*if(props.previewState){
     dialogVisibleContact.value = false;
   }else{
     dialogVisibleContact.value = true;
-  }
+  }*/
+  dialogVisibleContact.value = !mobileNumber.value;
   
 })
 
@@ -239,6 +247,10 @@ const nicNumber = computed({
 const nationality = computed({
   get: () => store.formData.personalDetails.nationality,
   set: (value) => store.updatePersonalDetails({ nationality: value }),
+});
+
+watch(mobileNumber, (newVal) => {
+  dialogVisibleContact.value = !newVal;
 });
 </script>
 
